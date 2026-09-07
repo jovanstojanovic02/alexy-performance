@@ -704,7 +704,8 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
   <!-- ================= POČETNA ================= -->
   <section class="page" id="page-pocetna">
     <div class="hero">
-      <div class="hero-media"><img data-img="hero" alt="Presvučen volan sa kontrastnim šavom u kokpitu Audija"></div>
+      <!-- hero foto: privremeni placeholder (Unsplash / Yuvraj Singh, Unsplash License) do klijentovih fotografija -->
+      <div class="hero-media"><img data-img="hero" alt="Sportski kokpit sa volanom u tamnom ambijentu"></div>
       <div class="wrap hero-inner">
         <p class="eyebrow">Custom volani po narudžbi · Hrvatska</p>
         <h1>
@@ -975,7 +976,7 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
   try{ IMG = JSON.parse(document.getElementById('imgdata').textContent); }catch(e){ IMG = {}; }
   var PH = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='600'%3E%3Crect%20width='800'%20height='600'%20fill='%23141418'/%3E%3Cg%20fill='none'%20stroke='%23E9A868'%20stroke-opacity='.13'%20stroke-width='2'%20stroke-linecap='round'%3E%3Ccircle%20cx='400'%20cy='292'%20r='150'/%3E%3Ccircle%20cx='400'%20cy='292'%20r='46'/%3E%3Cpath%20d='M400%20142v104M262%20372l92-54M538%20372l-92-54'/%3E%3C/g%3E%3Ctext%20x='400'%20y='486'%20font-family='Georgia,serif'%20font-size='24'%20letter-spacing='7'%20text-anchor='middle'%20fill='%23E9A868'%20fill-opacity='.26'%3EALEXY%3C/text%3E%3C/svg%3E";
   function src(k){ return IMG[k] || PH; }
-  var HAS_PHOTOS = Object.keys(IMG).length > 0;
+  function hasImg(k){ return !!IMG[k]; }
 
   /* ---------- DATA ---------- */
   var SERVICES = [
@@ -1179,7 +1180,8 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
     if(!grp){ grp = { label:g[1], keys:[] }; GAL_GROUPS.push(grp); }
     grp.keys.push(g[0]);
   });
-  if(!HAS_PHOTOS){
+  var galHasPhotos = GALLERY.some(function(g){ return hasImg(g[0]); });
+  if(!galHasPhotos){
     galSections.innerHTML = '<div class="cta rv in" style="text-align:center">'
       + '<p class="eyebrow" style="justify-content:center">Galerija u pripremi</p>'
       + '<h2>Radovi uskoro</h2>'
@@ -1188,7 +1190,7 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
       + '</div>';
   }
   GAL_GROUPS.forEach(function(grp){
-    if(!HAS_PHOTOS) return;
+    if(!galHasPhotos) return;
     var sec = el('<section class="gal-cat">'
       + '<button class="gal-head" type="button" aria-expanded="false">'
       + '<span class="gal-cover"></span>'
