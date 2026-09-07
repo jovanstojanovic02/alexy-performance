@@ -973,8 +973,9 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
   var fine = !!(window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches);
   var IMG = {};
   try{ IMG = JSON.parse(document.getElementById('imgdata').textContent); }catch(e){ IMG = {}; }
-  var PH = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='3'%3E%3Crect width='4' height='3' fill='%23191A1F'/%3E%3C/svg%3E";
+  var PH = "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='600'%3E%3Crect%20width='800'%20height='600'%20fill='%23141418'/%3E%3Cg%20fill='none'%20stroke='%23E9A868'%20stroke-opacity='.13'%20stroke-width='2'%20stroke-linecap='round'%3E%3Ccircle%20cx='400'%20cy='292'%20r='150'/%3E%3Ccircle%20cx='400'%20cy='292'%20r='46'/%3E%3Cpath%20d='M400%20142v104M262%20372l92-54M538%20372l-92-54'/%3E%3C/g%3E%3Ctext%20x='400'%20y='486'%20font-family='Georgia,serif'%20font-size='24'%20letter-spacing='7'%20text-anchor='middle'%20fill='%23E9A868'%20fill-opacity='.26'%3EALEXY%3C/text%3E%3C/svg%3E";
   function src(k){ return IMG[k] || PH; }
+  var HAS_PHOTOS = Object.keys(IMG).length > 0;
 
   /* ---------- DATA ---------- */
   var SERVICES = [
@@ -1178,7 +1179,16 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
     if(!grp){ grp = { label:g[1], keys:[] }; GAL_GROUPS.push(grp); }
     grp.keys.push(g[0]);
   });
+  if(!HAS_PHOTOS){
+    galSections.innerHTML = '<div class="cta rv in" style="text-align:center">'
+      + '<p class="eyebrow" style="justify-content:center">Galerija u pripremi</p>'
+      + '<h2>Radovi uskoro</h2>'
+      + '<p class="lead">Fotografije gotovih volana dodajemo uskoro. Do tada, najnovije izrade objavljujemo na Instagramu.</p>'
+      + '<div class="cta-actions"><a class="btn btn--solid" href="https://instagram.com/alexy_performance__volani" target="_blank" rel="noopener">Instagram @alexy_performance__volani <span class="arw">↗</span></a></div>'
+      + '</div>';
+  }
   GAL_GROUPS.forEach(function(grp){
+    if(!HAS_PHOTOS) return;
     var sec = el('<section class="gal-cat">'
       + '<button class="gal-head" type="button" aria-expanded="false">'
       + '<span class="gal-cover"></span>'
