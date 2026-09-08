@@ -660,6 +660,44 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
   .gal .item:hover img{ transform:none; filter:brightness(1.02); }
   .svc-img img{ filter:brightness(.92) grayscale(.05); }
 }
+
+/* ============ KONFIGURATOR ============ */
+.cfg{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:clamp(1.5rem,4vw,3.2rem); align-items:start; }
+.cfg-visual{ position:sticky; top:calc(var(--nav-h) + 1.2rem); }
+.cfg-wheel{ border:1px solid var(--line); border-radius:var(--radius-lg); background:radial-gradient(120% 120% at 50% 30%, #191b21 0%, #101014 70%); padding:1.4rem; }
+.cfg-wheel svg{ width:100%; height:auto; display:block; }
+.cfg-rim{ transition:stroke .3s var(--ease); }
+.cfg-stitch{ transition:stroke .3s var(--ease); }
+.cfg-cap{ margin:.8rem 0 0; font-family:var(--ff-mono); font-size:var(--fs-xs); line-height:1.5; color:var(--muted-2); text-transform:uppercase; letter-spacing:.06em; }
+.cfg-group{ padding:1.15rem 0; border-bottom:1px solid var(--line-soft); }
+.cfg-group:first-child{ padding-top:0; }
+.cfg-glabel{ display:block; font-family:var(--ff-mono); font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:.16em; color:var(--muted); margin-bottom:.7rem; }
+.cfg-opts{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.cfg-opt{ appearance:none; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--muted); font-family:var(--ff-body); font-size:var(--fs-sm); font-weight:500; padding:.55rem .9rem; border-radius:100px; display:inline-flex; align-items:center; gap:.5rem; transition:border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease); }
+.cfg-opt:hover{ color:var(--text); border-color:var(--muted-2); }
+.cfg-opt.sel{ border-color:var(--accent); color:var(--accent-ink); background:var(--accent); font-weight:600; }
+.cfg-opt .cfg-plus{ font-family:var(--ff-mono); font-size:var(--fs-xs); opacity:.75; }
+.cfg-opt.sel .cfg-plus{ opacity:.85; }
+.cfg-sw{ display:inline-block; width:20px; height:20px; border-radius:50%; border:2px solid rgba(255,255,255,.18); flex:none; box-shadow:0 1px 4px rgba(0,0,0,.4); }
+.cfg-opt.sel .cfg-sw{ border-color:var(--accent-ink); }
+.cfg-veh{ display:grid; grid-template-columns:150px 1fr; gap:.6rem; }
+.cfg-veh select, .cfg-veh input{ appearance:none; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); color:var(--text); font-family:var(--ff-body); font-size:var(--fs-sm); padding:.6rem .8rem; }
+.cfg-veh select:focus, .cfg-veh input:focus{ outline:none; border-color:var(--accent); }
+.cfg-summary{ margin-top:1.4rem; border:1px solid var(--line); border-radius:var(--radius-lg); background:linear-gradient(180deg,#1a1b21,#131418); padding:1.3rem; }
+.cfg-list{ list-style:none; margin:.4rem 0 0; padding:0; display:flex; flex-direction:column; gap:.35rem; }
+.cfg-list li{ display:flex; justify-content:space-between; gap:1rem; font-size:var(--fs-sm); color:var(--muted); border-bottom:1px dashed var(--line-soft); padding-bottom:.35rem; }
+.cfg-list li b{ color:var(--text); font-weight:600; text-align:right; }
+.cfg-list li.cfg-veh-line b{ color:var(--accent); }
+.cfg-price-row{ display:flex; justify-content:space-between; align-items:baseline; margin:1.1rem 0; font-family:var(--ff-mono); text-transform:uppercase; letter-spacing:.1em; font-size:var(--fs-xs); color:var(--muted); }
+.cfg-price{ font-family:var(--ff-display); font-weight:800; font-size:1.9rem; letter-spacing:-.01em; color:var(--accent); }
+.cfg-note{ margin:.9rem 0 0; font-size:var(--fs-xs); line-height:1.55; color:var(--muted-2); }
+@media (max-width:900px){
+  .cfg{ grid-template-columns:1fr; }
+  .cfg-visual{ position:static; max-width:360px; margin-inline:auto; }
+}
+@media (max-width:560px){
+  .cfg-veh{ grid-template-columns:1fr; }
+}
 </style>
 
 <div class="atmos" aria-hidden="true">
@@ -688,6 +726,7 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
       <a href="#/pocetna" data-link>Početna</a>
       <a href="#/usluge" data-link>Usluge</a>
       <a href="#/modeli" data-link>Modeli</a>
+      <a href="#/konfigurator" data-link>Konfigurator</a>
       <a href="#/galerija" data-link>Galerija</a>
       <a href="#/proces" data-link>Proces</a>
       <a href="#/kontakt" data-link>Kontakt</a>
@@ -841,6 +880,75 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
     </section>
   </section>
 
+  <!-- ================= KONFIGURATOR ================= -->
+  <section class="page" id="page-konfigurator">
+    <div class="wrap pagehead">
+      <p class="eyebrow">Konfigurator</p>
+      <h1>Sastavi<br>svoj volan</h1>
+      <p class="lead">Izaberi oblik, materijal, boje i opremu — cena se računa u hodu. Na kraju pošalji konfiguraciju i javljamo ti potvrdu i tačan rok izrade za tvoj model.</p>
+    </div>
+    <section class="band">
+      <div class="wrap">
+        <div class="cfg">
+          <div class="cfg-visual rv">
+            <div class="cfg-wheel">
+              <svg id="cfgSvg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Šematski prikaz volana">
+                <defs>
+                  <linearGradient id="cfgCarbon" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#262931"/><stop offset=".5" stop-color="#14161b"/><stop offset="1" stop-color="#2b2e39"/>
+                  </linearGradient>
+                </defs>
+                <path id="cfgRimRound" class="cfg-rim" d="M52 160 A108 108 0 1 1 268 160 A108 108 0 1 1 52 160" fill="none" stroke="#1b1b1e" stroke-width="26"/>
+                <path id="cfgRimFlat" class="cfg-rim" d="M78 239 A108 108 0 1 1 242 239 L78 239" fill="none" stroke="#1b1b1e" stroke-width="26" style="display:none"/>
+                <path id="cfgStitchRound" class="cfg-stitch" d="M52 160 A108 108 0 1 1 268 160 A108 108 0 1 1 52 160" fill="none" stroke="#8a8a8a" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
+                <path id="cfgStitchFlat" class="cfg-stitch" d="M78 239 A108 108 0 1 1 242 239 L78 239" fill="none" stroke="#8a8a8a" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round" style="display:none"/>
+                <rect id="cfg12h" x="152" y="36" width="16" height="22" rx="3" fill="#d23b3b" style="display:none"/>
+                <g id="cfgPerf" style="display:none" fill="rgba(255,255,255,.30)">
+                  <circle cx="44" cy="146" r="1.7"/><circle cx="44" cy="156" r="1.7"/><circle cx="44" cy="166" r="1.7"/><circle cx="44" cy="176" r="1.7"/>
+                  <circle cx="276" cy="146" r="1.7"/><circle cx="276" cy="156" r="1.7"/><circle cx="276" cy="166" r="1.7"/><circle cx="276" cy="176" r="1.7"/>
+                </g>
+                <path class="cfg-spoke" d="M160 160 L74 174 M160 160 L246 174 M160 160 L160 244" stroke="#242428" stroke-width="17" stroke-linecap="round"/>
+                <circle class="cfg-hub" cx="160" cy="160" r="43" fill="#101013" stroke="#2c2c31" stroke-width="2"/>
+                <g id="cfgLED" style="display:none">
+                  <rect x="133" y="124" width="54" height="7" rx="3" fill="var(--accent)"/>
+                  <circle cx="141" cy="114" r="2.4" fill="#48b357"/><circle cx="151" cy="112" r="2.4" fill="#48b357"/>
+                  <circle cx="160" cy="111" r="2.4" fill="#e0b83b"/><circle cx="169" cy="112" r="2.4" fill="#e0b83b"/><circle cx="179" cy="114" r="2.4" fill="#d23b3b"/>
+                </g>
+                <g id="cfgBtns" style="display:none" font-family="var(--ff-mono)" font-size="8">
+                  <rect x="118" y="176" width="18" height="11" rx="2" fill="rgba(232,168,104,.22)" stroke="var(--accent)" stroke-width="1"/>
+                  <rect x="184" y="176" width="18" height="11" rx="2" fill="rgba(232,168,104,.22)" stroke="var(--accent)" stroke-width="1"/>
+                  <text x="127" y="184.5" text-anchor="middle" fill="var(--accent)">M1</text>
+                  <text x="193" y="184.5" text-anchor="middle" fill="var(--accent)">M2</text>
+                </g>
+              </svg>
+            </div>
+            <p class="cfg-cap">Šematski prikaz — boje i oprema prate izbor; ne prikazuje tačan model volana.</p>
+          </div>
+          <div class="cfg-main rv">
+            <div class="cfg-group">
+              <span class="cfg-glabel">Vozilo</span>
+              <div class="cfg-veh">
+                <select id="cfgBrand" aria-label="Marka"></select>
+                <input id="cfgModel" type="text" placeholder="Model (npr. G20, 8V, W205)" aria-label="Model">
+              </div>
+            </div>
+            <div id="cfgGroups"></div>
+            <div class="cfg-summary" id="cfgSummary">
+              <span class="cfg-glabel">Tvoj odabir</span>
+              <ul class="cfg-list" id="cfgList"></ul>
+              <div class="cfg-price-row">
+                <span>Okvirna cena</span>
+                <span class="cfg-price" id="cfgPrice">—</span>
+              </div>
+              <a class="btn btn--solid" id="cfgSend" href="#/kontakt" style="width:100%;justify-content:center">Pošalji konfiguraciju <span class="arw">↗</span></a>
+              <p class="cfg-note">* Okvirna cena, bez PDV-a i dostave. Konačnu potvrđuje ALEXY na osnovu modela vozila i detalja izrade.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
   <!-- ================= GALERIJA ================= -->
   <section class="page" id="page-galerija">
     <div class="wrap pagehead">
@@ -940,6 +1048,7 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
         <h4>Navigacija</h4>
         <a href="#/usluge" data-link>Usluge</a>
         <a href="#/modeli" data-link>Modeli</a>
+        <a href="#/konfigurator" data-link>Konfigurator</a>
         <a href="#/galerija" data-link>Galerija</a>
         <a href="#/proces" data-link>Proces</a>
         <a href="#/kontakt" data-link>Kontakt</a>
@@ -1229,6 +1338,109 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
     galSections.appendChild(sec);
   });
 
+  // konfigurator
+  (function(){
+    var svg = document.getElementById('cfgSvg');
+    if(!svg) return;
+    /* CENE SU OKVIRNE — ALEXY definiše konačan cenovnik po opciji */
+    var BASE = { label:'Materijal venca', key:'material', options:[
+      { v:'Koža', price:190 },
+      { v:'Alcantara', price:210 },
+      { v:'Koža + Alcantara', price:250 },
+      { v:'Karbon + koža', price:430 },
+      { v:'Kovani karbon + koža', price:590 }
+    ]};
+    var GROUPS = [
+      { label:'Oblik venca', key:'shape', options:[ {v:'OEM oblik',price:0}, {v:'Flat-bottom',price:60} ]},
+      { label:'Boja kože / Alcantare', key:'hide', sw:true, options:[
+        {v:'Crna',price:0,c:'#17171a'}, {v:'Siva',price:0,c:'#6a6b70'}, {v:'Smeđa',price:15,c:'#5a3b26'},
+        {v:'Bež',price:15,c:'#b9a888'}, {v:'Crvena',price:25,c:'#7d2b2b'} ]},
+      { label:'Boja konca (šav)', key:'thread', sw:true, options:[
+        {v:'Crna',price:0,c:'#2a2a2d'}, {v:'Siva',price:0,c:'#9a9a9f'}, {v:'Crvena',price:15,c:'#d23b3b'},
+        {v:'Plava',price:15,c:'#3b6bd2'}, {v:'Žuta',price:15,c:'#e0b83b'}, {v:'M-tricolor',price:30,c:'#2ea3e0'} ]},
+      { label:'12h oznaka', key:'top', options:[ {v:'Bez',price:0}, {v:'Sa oznakom',price:25} ]},
+      { label:'Perforacija na hvatovima', key:'perf', options:[ {v:'Bez',price:0}, {v:'Sa perforacijom',price:25} ]},
+      { label:'LED display & shift lights', key:'led', options:[ {v:'Bez',price:0}, {v:'Sa LED displejem',price:300} ]},
+      { label:'M1 / M2 tipke', key:'btn', options:[ {v:'Bez',price:0}, {v:'Sa tipkama',price:180} ]},
+      { label:'Airbag', key:'airbag', options:[ {v:'Zadržati originalni',price:0}, {v:'Bez airbaga (track)',price:0} ]},
+      { label:'Izvedba', key:'trim', options:[ {v:'OEM+ (diskretno)',price:0}, {v:'Custom (naglašen dizajn)',price:90} ]}
+    ];
+    var ALL = [BASE].concat(GROUPS);
+    var state = {};
+    ALL.forEach(function(g){ state[g.key] = g.options[0].v; });
+
+    var brandSel = document.getElementById('cfgBrand');
+    ['BMW','Mercedes-Benz','Audi','Volkswagen','Porsche','MINI','Ostalo'].forEach(function(b){
+      brandSel.appendChild(el('<option>' + b + '</option>'));
+    });
+    var modelInp = document.getElementById('cfgModel');
+
+    var groupsWrap = document.getElementById('cfgGroups');
+    ALL.forEach(function(g){
+      var box = el('<div class="cfg-group"><span class="cfg-glabel">' + g.label + '</span><div class="cfg-opts"></div></div>');
+      var opts = box.querySelector('.cfg-opts');
+      g.options.forEach(function(o){
+        var sw = g.sw ? '<span class="cfg-sw" style="background:' + o.c + '"></span>' : '';
+        var plus = o.price ? ' <span class="cfg-plus">+' + o.price + '€</span>' : '';
+        var b = el('<button type="button" class="cfg-opt">' + sw + '<span>' + o.v + '</span>' + plus + '</button>');
+        if(o.v === state[g.key]) b.classList.add('sel');
+        b.addEventListener('click', function(){
+          state[g.key] = o.v;
+          opts.querySelectorAll('.cfg-opt').forEach(function(x){ x.classList.toggle('sel', x === b); });
+          update();
+        });
+        opts.appendChild(b);
+      });
+      groupsWrap.appendChild(box);
+    });
+    brandSel.addEventListener('change', update);
+    modelInp.addEventListener('input', update);
+
+    function priceOf(key){
+      var g = ALL.filter(function(x){ return x.key === key; })[0];
+      var o = g.options.filter(function(x){ return x.v === state[key]; })[0];
+      return o ? o.price : 0;
+    }
+    function $(id){ return document.getElementById(id); }
+    function show(id, on){ var e = $(id); if(e) e.style.display = on ? '' : 'none'; }
+    var HIDE_C = {'Crna':'#17171a','Siva':'#6a6b70','Smeđa':'#5a3b26','Bež':'#b9a888','Crvena':'#7d2b2b'};
+    var THR_C = {'Crna':'#2a2a2d','Siva':'#9a9a9f','Crvena':'#d23b3b','Plava':'#3b6bd2','Žuta':'#e0b83b','M-tricolor':'#2ea3e0'};
+
+    function update(){
+      var total = 0;
+      ALL.forEach(function(g){ total += priceOf(g.key); });
+
+      var flat = state.shape === 'Flat-bottom';
+      show('cfgRimRound', !flat); show('cfgStitchRound', !flat);
+      show('cfgRimFlat', flat); show('cfgStitchFlat', flat);
+      var carbon = /[Kk]arbon/.test(state.material);
+      var rimStroke = carbon ? 'url(#cfgCarbon)' : (HIDE_C[state.hide] || '#17171a');
+      svg.querySelectorAll('.cfg-rim').forEach(function(p){ p.setAttribute('stroke', rimStroke); });
+      var thr = THR_C[state.thread] || '#8a8a8a';
+      svg.querySelectorAll('.cfg-stitch').forEach(function(p){ p.setAttribute('stroke', thr); });
+      var m12 = $('cfg12h'); if(m12) m12.setAttribute('fill', thr);
+      show('cfg12h', state.top !== 'Bez');
+      show('cfgPerf', state.perf !== 'Bez');
+      show('cfgLED', state.led !== 'Bez');
+      show('cfgBtns', state.btn !== 'Bez');
+
+      var list = $('cfgList'); list.innerHTML = '';
+      var brand = brandSel.value, model = (modelInp.value || '').trim();
+      var veh = brand + (model ? ' ' + model : '');
+      list.appendChild(el('<li class="cfg-veh-line"><span>Vozilo</span><b>' + veh + '</b></li>'));
+      ALL.forEach(function(g){
+        list.appendChild(el('<li><span>' + g.label + '</span><b>' + state[g.key] + '</b></li>'));
+      });
+      $('cfgPrice').textContent = '€' + total;
+
+      var lines = ['KONFIGURACIJA VOLANA', 'Vozilo: ' + veh];
+      ALL.forEach(function(g){ lines.push(g.label + ': ' + state[g.key]); });
+      lines.push('Okvirna cena iz konfiguratora: €' + total);
+      $('cfgSend').setAttribute('href', '#/kontakt?konfig=' + encodeURIComponent(lines.join('\n')));
+    }
+    update();
+  })();
+
   // proces full (with images)
   var procFull = document.getElementById('procFull');
   PROCESS.forEach(function(s){ var node = el(procStep(s,true)); fill(node); procFull.appendChild(node); });
@@ -1320,7 +1532,7 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
   fsvc.innerHTML = '<option value="">— izaberi —</option>' + SVC_OPTIONS.map(function(o){ return '<option>' + o + '</option>'; }).join('');
 
   /* ---------- ROUTER ---------- */
-  var pages = ['pocetna','usluge','modeli','galerija','proces','kontakt'];
+  var pages = ['pocetna','usluge','modeli','konfigurator','galerija','proces','kontakt'];
   // headings get a line-wipe reveal
   document.querySelectorAll('.h-section, .pagehead h1, .cta h2').forEach(function(h){ h.classList.add('rv-mask'); });
   var swipe = document.getElementById('swipe');
@@ -1361,11 +1573,24 @@ body.menu-open .burger span::after{ transform:translate(-50%,-50%) rotate(-45deg
     if(qi < 0) return;
     var p;
     try{ p = new URLSearchParams(location.hash.slice(qi + 1)); }catch(e){ return; }
-    var usluga = p.get('usluga'), model = p.get('model');
-    if(!usluga && !model) return;
+    var usluga = p.get('usluga'), model = p.get('model'), konfig = p.get('konfig');
+    if(!usluga && !model && !konfig) return;
     var msg = document.getElementById('f-msg');
     var car = document.getElementById('f-car');
     var lead;
+    if(konfig){
+      var kopt = [].slice.call(fsvc.options).filter(function(o){ return /izrada custom volana/i.test(o.text); })[0];
+      if(kopt) fsvc.value = kopt.value || kopt.text;
+      var vm = konfig.match(/Vozilo:\s*(.+)/);
+      if(vm && !/^—/.test(vm[1].trim())) car.value = vm[1].trim();
+      var typedk = msg.value.replace(/^KONFIGURACIJA VOLANA[\s\S]*?(\n\n|$)/, '');
+      msg.value = konfig + '\n\n' + typedk;
+      try{ history.replaceState(null, '', '#/kontakt'); }catch(e){}
+      if(window.innerWidth <= 820){
+        setTimeout(function(){ try{ document.getElementById('cform').scrollIntoView({ behavior:'smooth', block:'start' }); }catch(e){} }, 820);
+      }
+      return;
+    }
     if(usluga){
       lead = 'Interesuje me: ' + usluga + '.';
       var opt = [].slice.call(fsvc.options).filter(function(o){ return o.text.toLowerCase() === usluga.toLowerCase(); })[0];
